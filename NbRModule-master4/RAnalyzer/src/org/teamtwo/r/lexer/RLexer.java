@@ -1,4 +1,4 @@
-// Generated from C:\Users\matth\Desktop\NbRModule-master4\grammar\R.g4 by ANTLR 4.1
+// Generated from  https://github.com/antlr/grammars-v4/tree/master/r by ANTLR 4.1
 package org.teamtwo.r.lexer;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;

@@ -61,22 +61,12 @@ public class NbRLexer implements Lexer<RTokenId> {
                 result = info.tokenFactory().createToken(tokenId, info.input().readLength(), PartType.MIDDLE);
             }
             else if (info.input().readLength() == 0) {
-                 //result = token.text().subSequence(1, token.length() - 1);
-                result = info.tokenFactory().createToken(RLanguageHierarchy.getToken(RLexer.WS));                 
-                 //tokenId = RLanguageHierarchy.getToken(RLexer.LS);
-                 //result = info.tokenFactory().createToken(tokenId, info.input().readLength()); 
-                 //result = info.tokenFactory().createToken(tokenId);
-                 //result = info.tokenFactory().createToken(RLanguageHierarchy.getToken(RLexer.LS));  
-                //tokenId = RLanguageHierarchy.getToken(RLexer.WS);
-                //result = info.tokenFactory().createToken(tokenId, info.input().readLength(), PartType.MIDDLE);                 
-            }
+                 result = info.tokenFactory().createToken(RLanguageHierarchy.getToken(RLexer.WS));                 
+                  }
             else {
                 result = info.tokenFactory().createToken(RLanguageHierarchy.getToken(RLexer.WS));
             }
-            //org.antlr.v4.runtime.Token token = rlexer.nextToken();  
-            //tokenId = RLanguageHierarchy.getToken(RLexer.WS);
-            //result = info.tokenFactory().createToken(tokenId, info.input().readLength(), PartType.MIDDLE); 
-            return result;
+           return result;
         }
     }
 
