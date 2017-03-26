@@ -53,13 +53,11 @@ public class TextsNodesFactory implements NodeFactory
     private class TextsNodeList implements NodeList<Node>, PreferenceChangeListener {
 
         RProject project;
-        private final Preferences prefs;
         private final ChangeSupport cs;
         public TextsNodeList(RProject project) {
             this.project = project;
             this.cs = new ChangeSupport(this);
-            this.prefs = ProjectUtils.getPreferences(project, PeterProjectCustomizer.class, true);
-            prefs.addPreferenceChangeListener(this);
+
         }
 
         //@Override
