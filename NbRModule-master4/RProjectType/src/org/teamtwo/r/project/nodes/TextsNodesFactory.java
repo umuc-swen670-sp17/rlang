@@ -65,8 +65,8 @@ public class TextsNodesFactory implements NodeFactory
         public List<Node> keys() {
             System.out.println("filelist2");
             FileObject textsFolder = 
-            project.getProjectDirectory().getFileObject("Files");
-            //project.getProjectDirectory().getFileObject(".");            
+            //project.getProjectDirectory().getFileObject("Files");
+            project.getProjectDirectory().getFileObject(".");            
             List<Node> result = new ArrayList<Node>();
             if (textsFolder != null ) {
             //    for (FileObject textsFolderFile : textsFolder.getChildren()) {                  
