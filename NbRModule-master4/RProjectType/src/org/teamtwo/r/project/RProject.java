@@ -30,6 +30,7 @@ import org.netbeans.spi.project.ui.support.NodeFactorySupport;
 import org.netbeans.spi.project.ui.support.UILookupMergerSupport;
 import org.openide.filesystems.FileObject;
 import org.openide.loaders.DataFolder;
+import org.openide.loaders.DataObject;
 import org.openide.loaders.DataObjectNotFoundException;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
@@ -38,6 +39,7 @@ import org.openide.nodes.Node;
 import org.openide.util.Exceptions;
 import org.openide.util.ImageUtilities;
 import org.openide.util.Lookup;
+import org.openide.util.Utilities;
 import org.openide.util.lookup.Lookups;
 import org.openide.util.lookup.ProxyLookup;
 
@@ -68,6 +70,7 @@ public class RProject implements Project
     @Override
     public Lookup getLookup()
     {
+        //System.out.println("getLookup1");
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if (lkp == null)
         {
@@ -80,9 +83,9 @@ public class RProject implements Project
                 new RProjectActionProvider(),
                 new RProjectMoveOrRenameOperation(this),
                 new RProjectCopyOperation(),
-                new RProjectDeleteOperation(),
+                new RProjectDeleteOperation(this),
                 UILookupMergerSupport.createPrivilegedTemplatesMerger(),
-                UILookupMergerSupport.createRecommendedTemplatesMerger(),
+                UILookupMergerSupport.createRecommendedTemplatesMerger()
             });
         }
         return LookupProviderSupport.createCompositeLookup(lkp, "Projects/org-teamtwo-r-project/Lookup");
@@ -94,7 +97,9 @@ public class RProject implements Project
 
         @Override
         public String[] getSupportedActions()
+                
         {
+                    System.out.println("getsupportedactions1");
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             return new String[]
             {
@@ -108,9 +113,11 @@ public class RProject implements Project
         @Override
         public void invokeAction(String command, Lookup context) throws IllegalArgumentException
         {
+                            System.out.println("invokeactions1");
             if (command.equalsIgnoreCase(ActionProvider.COMMAND_RENAME))
             {
                 DefaultProjectOperations.performDefaultRenameOperation(RProject.this, "");
+                System.out.println("rename");
             }
             if (command.equalsIgnoreCase(ActionProvider.COMMAND_MOVE))
             {
@@ -129,6 +136,7 @@ public class RProject implements Project
         @Override
         public boolean isActionEnabled(String command, Lookup context) throws IllegalArgumentException
         {
+                            System.out.println("actionisenabled");
             if ((command.equals(ActionProvider.COMMAND_RENAME)))
             {
                 return true;
@@ -166,6 +174,7 @@ public class RProject implements Project
             {
                 System.out.println("========" + nomFichier.getName() + "============");
             }
+                System.out.println("rename2");            
             return files;
 
         }
@@ -173,6 +182,7 @@ public class RProject implements Project
         @Override
         public List<FileObject> getDataFiles()
         {
+                            System.out.println("rename3");
             return new ArrayList<FileObject>();
         }
 
@@ -207,6 +217,7 @@ public class RProject implements Project
         @Override
         public String getName()
         {
+                            System.out.println("rpinformationgetname");
             return getProjectDirectory().getName();
         }
 
@@ -273,17 +284,30 @@ public class RProject implements Project
     //Delete operation implementation
     private final class RProjectDeleteOperation implements DeleteOperationImplementation
     {
+        private final RProject rProject;        
+        public RProjectDeleteOperation(RProject rProject)
+        {
+            this.rProject = rProject;
+        }
 
         @Override
         public List<FileObject> getMetadataFiles()
         {
-            return new ArrayList<FileObject>();
+
+            FileObject projectDirectory = rProject.getProjectDirectory().getFileObject(".");
+            List<FileObject> files = new ArrayList<FileObject>();
+            //return new ArrayList<FileObject>();    
+            return files;
+
         }
 
         @Override
         public List<FileObject> getDataFiles()
         {
-            return new ArrayList<FileObject>();
+            FileObject projectDirectory = rProject.getProjectDirectory().getFileObject(".");
+            List<FileObject> files = new ArrayList<FileObject>();            
+            //return new ArrayList<FileObject>();
+            return files;
         }
 
         @Override
@@ -308,6 +332,7 @@ public class RProject implements Project
 
         public RProjectLogicalView(RProject project)
         {
+            System.out.println("logicalview");  
             this.project = project;
         }
 
@@ -317,6 +342,7 @@ public class RProject implements Project
             try
             {
                 // obtain the project directory node
+                            System.out.println("logicalview2");  
                 FileObject projectDirectory = project.getProjectDirectory();
                 DataFolder projectFolder = DataFolder.findFolder(projectDirectory);
                 Node nodeOfProjectFolder = projectFolder.getNodeDelegate();
@@ -324,6 +350,7 @@ public class RProject implements Project
             } catch (DataObjectNotFoundException ex)
             {
                 Exceptions.printStackTrace(ex);
+                System.out.println("logicalview3"); 
                 return new AbstractNode(Children.LEAF);
             }
         }
@@ -344,20 +371,30 @@ public class RProject implements Project
                                     Lookups.singleton(project),
                                     node.getLookup()
                                 }));
+                                System.out.println("logicalview4"); 
                 this.project = project;
             }
 
             @Override
+
             public Action[] getActions(boolean arg0)
             {
+                System.out.println("actions1");
+                
                 return new Action[]
                 {
-                    CommonProjectActions.newFileAction(),
+                    //CommonProjectActions.newFileAction(),
                     CommonProjectActions.copyProjectAction(),
                     CommonProjectActions.renameProjectAction(),
                     CommonProjectActions.deleteProjectAction(),
-                    CommonProjectActions.customizeProjectAction(),
+                    CommonProjectActions.moveProjectAction(),
+                   // CommonProjectActions.newProjectAction(),
+                   // CommonProjectActions.setAsMainProjectAction(),
+                   // CommonProjectActions.setProjectConfigurationAction(),
+                   // CommonProjectActions.customizeProjectAction(),
                     CommonProjectActions.closeProjectAction()
+                    //Utilities.actionsForPath("Actions/Edit/")
+                    //CommonProjectActions.forType()
                 };
             }
 

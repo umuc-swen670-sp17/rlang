@@ -3,7 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-@TemplateRegistration(folder = "Files", content = "RTemplate.r")
-package org.teamtwo.r.filetype;
+package org.teamtwo.r.project.nodes;
 
-import org.netbeans.api.templates.TemplateRegistration;
+/**
+ *
+ * @author matth
+ */
+public class RefreshPropsAction {
+    
+}

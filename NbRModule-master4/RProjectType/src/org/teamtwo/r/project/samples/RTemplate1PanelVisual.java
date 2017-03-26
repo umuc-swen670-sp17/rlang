@@ -181,12 +181,13 @@ public class RTemplate1PanelVisual extends JPanel implements DocumentListener {
         }
 
         File[] kids = destFolder.listFiles();
-        if (destFolder.exists() && kids != null && kids.length > 0) {
+        //if (destFolder.exists() && kids != null && kids.length > 0) {
             // Folder exists and is not empty
-            wizardDescriptor.putProperty("WizardPanel_errorMessage",
-                    "Project Folder already exists and is not empty.");
-            return false;
-        }
+        //    wizardDescriptor.putProperty("WizardPanel_errorMessage",
+        //            "Project Folder already exists and is not empty.");
+        ///    return false;
+            //return true;
+        //}
         wizardDescriptor.putProperty("WizardPanel_errorMessage", "");
         return true;
     }

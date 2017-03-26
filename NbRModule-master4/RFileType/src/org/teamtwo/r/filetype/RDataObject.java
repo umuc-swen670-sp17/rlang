@@ -99,11 +99,14 @@ public class RDataObject extends MultiDataObject
     {
         super(pf, loader);
         registerEditor("text/x-r", true);
+        System.out.println("consume1");
+        pf.getLookup();
     }
 
     @Override
     protected int associateLookup()
     {
+                System.out.println("consume2");
         return 1;
     }
 
@@ -118,6 +121,7 @@ public class RDataObject extends MultiDataObject
     @Messages("LBL_R_EDITOR=Source")
     public static MultiViewEditorElement createEditor(Lookup lkp)
     {
+                System.out.println("consume3");
         return new MultiViewEditorElement(lkp);
     }
 

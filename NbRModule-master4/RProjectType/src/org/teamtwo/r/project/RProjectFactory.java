@@ -29,6 +29,8 @@ public class RProjectFactory implements ProjectFactory
     {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return fo.getFileObject(PROJECT_FILE) != null;
+       // return isProject(fo) ? new RProject(fo, ps) : null;
+       // return true;
     }
 
     // specifies when the project will be opened; if the project exists
@@ -36,7 +38,8 @@ public class RProjectFactory implements ProjectFactory
     public Project loadProject(FileObject fo, ProjectState ps) throws IOException
     {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return isProject(fo) ? new RProject(fo, ps) : null;
+       return isProject(fo) ? new RProject(fo, ps) : null;
+        //return new RProject(fo, ps);
     }
 
     @Override
