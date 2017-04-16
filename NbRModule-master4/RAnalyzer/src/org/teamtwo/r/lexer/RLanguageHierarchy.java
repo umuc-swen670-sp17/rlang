@@ -37,7 +37,7 @@ public class RLanguageHierarchy extends LanguageHierarchy<RTokenId>
         }
     }
 
-    static synchronized RTokenId getToken(int id)
+    public static synchronized RTokenId getToken(int id)
     {
         return idToToken.get(id);
     }

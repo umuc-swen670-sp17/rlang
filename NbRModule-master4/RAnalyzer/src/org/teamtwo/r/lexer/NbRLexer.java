@@ -31,6 +31,8 @@ public class NbRLexer implements Lexer<RTokenId> {
         rlexer = new RLexer(charStream);
     }
 
+
+
     @Override
     public org.netbeans.api.lexer.Token<RTokenId> nextToken() {
         org.netbeans.api.lexer.Token result = null;
